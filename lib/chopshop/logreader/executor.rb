@@ -29,7 +29,7 @@ module Chopshop
         service = ARGV[0]
         puts "looking for valid container"
         while !container
-          containers = `kubectl get pods --namespace connect | grep #{service}`
+          containers = `kubectl get pods --namespace #{options[:namespace]} | grep #{service}`
           container = containers.split("\n").map {|line| line.split(" ") }.each do |line|
             match_data = REGEX.match(line[4])
             line[5] = TIME_CALCULATOR[match_data.captures[1].downcase] * match_data.captures[0].to_i + TIME_CALCULATOR[match_data.captures[3].downcase] * match_data.captures[2].to_i

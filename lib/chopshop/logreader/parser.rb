@@ -3,21 +3,12 @@ require "optparse"
 module Chopshop
   module Logreader
     class Parser
-      REGEX = /(?<t1>\d+)(?<v1>[a-z]+)(?<t2>\d*)(?<v2>[a-z]*)/i
-
-      TIME_CALCULATOR = {
-        "s" => 1,
-        "m" => 60,
-        "h" => 60 * 60,
-        "d" => 60 * 60 * 24,
-        "" => 0 # protect for the scenario where a value isn't present in the capture group.
-      }
-
       def parse
         options = {
           follow: true, # follow output from log file
           lines: -1, # whole file always,
           status: "Running", # look for a currently running container
+          namespace: "connect"
         }
 
         OptionParser.new do |opts|
@@ -31,9 +22,14 @@ module Chopshop
             options[:lines] = lines
           end
 
-          opts.on("-s [STATUS]", "--status [STATUS]", "valid values: Completed|Running. will only look for containers with the given status. default: Running", String) do |status|
+          opts.on("-s [STATUS]", "--status [STATUS]", "valid values: Completed|Running|Error. will only look for containers with the given status. default: Running", String) do |status|
             options[:status] = status
           end
+
+          opts.on("-n [NAMESPACE]", "--namespace [NAMESPACE]", "sets the kubernetes namespace to look for containers in. default: connect", String) do |status|
+            options[:status] = status
+          end
+
 
           opts.on("-h", "--help", "Prints this help") do
             puts opts
