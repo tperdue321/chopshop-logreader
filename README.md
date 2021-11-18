@@ -19,11 +19,29 @@ Or install it yourself as:
 
 ## Usage
 
-`chopshop-logreader -h` to get help
+to get help:
+
+```bash
+chopshop-logreader -h
+```
+
 example use:
-`chopshop-logreader SERVICE_NAME_HERE -n connect -s Running -l 10 -f false`
+
+```bash
+chopshop-logreader SERVICE_NAME_HERE -n connect -s Running -l 10 -f false
+```
+
 default use:
-`chopshop-logreader profile-reader` expands to `chopshop-logreader profile-reader -n connect -s Running -l -1 -f true`
+
+```bash
+chopshop-logreader profile-reader
+```
+
+expands to
+
+```bash
+chopshop-logreader profile-reader -n connect -s Running -l -1 -f true
+```
 
 
 ## Development
