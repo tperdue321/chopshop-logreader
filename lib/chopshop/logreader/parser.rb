@@ -13,7 +13,7 @@ module Chopshop
         "" => 0 # protect for the scenario where a value isn't present in the capture group.
       }
 
-      def self.parse
+      def parse
         options = {
           follow: true, # follow output from log file
           lines: -1, # whole file always,

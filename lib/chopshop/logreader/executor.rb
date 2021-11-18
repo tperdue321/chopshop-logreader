@@ -5,12 +5,24 @@ module Chopshop
     class Executor
       attr_reader :parser
 
-      def initialize
-        @parser = Parser.new
-
-      end
+      REGEX = /(?<t1>\d+)(?<v1>[a-z]+)(?<t2>\d*)(?<v2>[a-z]*)/i
+      TIME_CALCULATOR = {
+        "s" => 1,
+        "m" => 60,
+        "h" => 60 * 60,
+        "d" => 60 * 60 * 24,
+        "" => 0 # protect for the scenario where a value isn't present in the capture group.
+      }
 
       def self.execute!
+        new.execute!
+      end
+
+      def initialize
+        @parser = Chopshop::Logreader::Parser.new
+      end
+
+      def execute!
         options = @parser.parse 
 
         container = nil
