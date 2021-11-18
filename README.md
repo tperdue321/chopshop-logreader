@@ -25,11 +25,16 @@ to get help:
 chopshop-logreader -h
 ```
 
-example use:
+example uses:
 
 ```bash
-chopshop-logreader SERVICE_NAME_HERE -n connect -s Running -l 10 -f false
+chopshop-logreader SERVICE_NAME_HERE -n connect -s Completed -l 10 -f false
 ```
+
+```bash
+chopshop-logreader SERVICE_NAME_HERE -n connect -s Error -l -1 -f true
+```
+
 
 default use:
 
