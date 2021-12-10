@@ -1,6 +1,5 @@
 # Chopshop::Logreader
 
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -11,11 +10,30 @@ gem 'chopshop-logreader'
 
 And then execute:
 
-    $ bundle
+```bash
+bundle
+```
 
 Or install it yourself as:
 
-    $ gem install chopshop-logreader
+```bash
+gem install chopshop-logreader
+```
+
+## Getting started
+
+This gem assumes 2 things.
+
+1. you will provide a cloud provider profile (think aws) via one of 3 sources:
+    - an option on the command line (`-p PROFILE` or `--profile PROFILE`)
+    - via the ENV VAR `AWS_PROFILE`
+    - via the ENV VAR `PROFILE`
+
+2. you will provide a tenant via one of 2 sources:
+    - an option on the command line (`t TENANT` or `--tenant TENANT`)
+    - via the ENV VAR `DEFAULT_TENANT`
+
+Ideally you will set those env vars before starting.
 
 ## Usage
 
@@ -35,8 +53,11 @@ chopshop-logreader SERVICE_NAME_HERE -n connect -s Completed -l 10 -f false
 chopshop-logreader SERVICE_NAME_HERE -n connect -s Error -l -1 -f true
 ```
 
+```bash
+chopshop-logreader SERVICE_NAME_HERE -n connect -s Error -l -1 -f true -t some-cool-tenant-name -p my-cool-aws-dev-profile
+```
 
-default use:
+### Default Use
 
 ```bash
 chopshop-logreader profile-reader
@@ -48,6 +69,7 @@ expands to
 chopshop-logreader profile-reader -n connect -s Running -l -1 -f true
 ```
 
+the default use also assumes your have set the ENV VARS `DEFAULT_TENANT` and either `AWS_PROFILE` or `PROFILE`
 
 ## Development
 
@@ -66,3 +88,8 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Chopshop::Logreader project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/chopshop-logreader/blob/master/CODE_OF_CONDUCT.md).
+
+
+## Project TODO
+
+- add a startup script that will set the default profile/tenant for a user
