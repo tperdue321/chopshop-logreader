@@ -1,5 +1,7 @@
 # Chopshop::Logreader
 
+This is a simple CLI tool that allows you to find & follow the logs for the most recently running kubernetes pod with a given name for a given status (default status is "Running"). As of now there is no support for searching for pods that started running in a given window of time, although that is a possible feature add if requested. if a valid pod is not found, it will ping the API once a second until one is found or the program is exited. This primarily just wraps some `kubectl` commands and handles parsing the output in standard way to quickly find a pod's logs.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -88,7 +90,6 @@ The gem is available as open source under the terms of the [MIT License](https:/
 ## Code of Conduct
 
 Everyone interacting in the Chopshop::Logreader project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/chopshop-logreader/blob/master/CODE_OF_CONDUCT.md).
-
 
 ## Project TODO
 
