@@ -11,7 +11,8 @@ module Chopshop
           status: "Running", # look for a currently running container
           namespace: "connect",
           tenant: nil,
-          profile: nil
+          profile: nil,
+          region: nil
         )
 
 
@@ -36,6 +37,10 @@ module Chopshop
 
           opts.on("-p [PROFILE]", "--profile [PROFILE]", "chooses the cloud profile to use for permissions. default: nil.  You must provide this value or set the ENV VAR AWS_PROFILE' or the ENV VAR 'PROFILE'", String) do |profile|
             options[:profile] = profile
+          end
+
+          opts.on("-r [REGION]", "--region [REGION]", "sets the cloud region to look for a tenant within. default: us-east-1.  You may also provide this value via the ENV VAR 'AWS_REGION'", String) do |region|
+            options[:region] = region
           end
 
           opts.on("-t [TENANT]", "--tenant [TENANT]", "sets the kubernetes tenant to look for containers in. default: nil.  You must provide this value or set the ENV VAR DEFAULT_TENANT'", String) do |tenant|

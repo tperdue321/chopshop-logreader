@@ -26,10 +26,11 @@ module Chopshop
         options = @parser.parse 
         profile = options.profile || ENV["AWS_PROFILE"] || ENV["PROFILE"]
         tenant = options.tenant || ENV["DEFAULT_TENANT"]
+        region = options.region || ENV["AWS_REGION"] || "us-east-1"
 
         container = nil
         service = ARGV[0]
-        `rally-kubectl -e #{profile} -t #{tenant}`
+        `rally-kubectl -a #{region} -e #{profile} -t #{tenant}`
         puts "looking for valid container"
         while !container
           containers = `kubectl get pods --namespace #{options.namespace} | grep #{service}`
