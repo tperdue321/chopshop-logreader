@@ -8,16 +8,17 @@ module Chopshop
         options = OpenStruct.new(
           follow: true, # follow output from log file
           lines: -1, # whole file always,
-          status: "Running", # look for a currently running container
+          status: "Running", # look for a currently running service
           namespace: "connect",
           tenant: nil,
           profile: nil,
-          region: nil
+          region: nil,
+          container: nil
         )
 
 
         OptionParser.new do |opts|
-          opts.banner = "Usage: ruby log-reader.rb SERVICE [options]"
+          opts.banner = "Usage: chopshop-logreader SERVICE [options]"
 
           opts.on("-f [FOLLOW]", "--follow [FOLLOW]", "boolean true/false on whether to follow output from the file. default: true", TrueClass) do |follow|
             options[:follow] = follow
@@ -27,11 +28,11 @@ module Chopshop
             options[:lines] = lines
           end
 
-          opts.on("-s [STATUS]", "--status [STATUS]", "valid values: Completed|Running|Error. will only look for containers with the given status. default: Running", String) do |status|
+          opts.on("-s [STATUS]", "--status [STATUS]", "valid values: Completed|Running|Error. will only look for services/jobs with the given status. default: Running", String) do |status|
             options[:status] = status
           end
 
-          opts.on("-n [NAMESPACE]", "--namespace [NAMESPACE]", "sets the kubernetes namespace to look for containers in. default: connect", String) do |status|
+          opts.on("-n [NAMESPACE]", "--namespace [NAMESPACE]", "sets the kubernetes namespace to look for service/job in. default: connect", String) do |status|
             options[:status] = status
           end
 
@@ -43,7 +44,11 @@ module Chopshop
             options[:region] = region
           end
 
-          opts.on("-t [TENANT]", "--tenant [TENANT]", "sets the kubernetes tenant to look for containers in. default: nil.  You must provide this value or set the ENV VAR DEFAULT_TENANT'", String) do |tenant|
+          opts.on("-c [CONTAINER]", "--container [CONTAINER]", "sets the kubernetes tenant to look for containers in. default: nil. Often not needed", String) do |container|
+            options[:container] = container
+          end
+
+          opts.on("-t [TENANT]", "--tenant [TENANT]", "sets the kubernetes tenant to look for the service/job in. default: nil.  You must provide this value or set the ENV VAR DEFAULT_TENANT'", String) do |tenant|
             options[:tenant] = tenant
           end
 
