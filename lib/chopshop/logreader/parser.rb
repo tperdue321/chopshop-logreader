@@ -9,7 +9,7 @@ module Chopshop
           follow: true, # follow output from log file
           lines: -1, # whole file always,
           status: "Running", # look for a currently running service
-          namespace: "connect",
+          namespace: nil,
           tenant: nil,
           profile: nil,
           region: nil,
@@ -32,8 +32,8 @@ module Chopshop
             options[:status] = status
           end
 
-          opts.on("-n [NAMESPACE]", "--namespace [NAMESPACE]", "sets the kubernetes namespace to look for service/job in. default: connect", String) do |status|
-            options[:status] = status
+          opts.on("-n [NAMESPACE]", "--namespace [NAMESPACE]", "sets the kubernetes namespace to look for service/job in. default: connect", String) do |namespace|
+            options[:namespace] = namespace
           end
 
           opts.on("-p [PROFILE]", "--profile [PROFILE]", "chooses the cloud profile to use for permissions. default: nil.  You must provide this value or set the ENV VAR AWS_PROFILE' or the ENV VAR 'PROFILE'", String) do |profile|
